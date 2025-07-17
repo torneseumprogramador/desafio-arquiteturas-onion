@@ -1,0 +1,5 @@
+com/ecommerce/domain/Order$OrderStatus.class
+com/ecommerce/domain/OrderProduct.class
+com/ecommerce/domain/User.class
+com/ecommerce/domain/Order.class
+com/ecommerce/domain/Product.class

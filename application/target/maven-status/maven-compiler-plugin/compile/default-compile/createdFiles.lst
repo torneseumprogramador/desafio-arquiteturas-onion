@@ -1,0 +1,6 @@
+com/ecommerce/application/repository/UserRepository.class
+com/ecommerce/application/service/ProductService.class
+com/ecommerce/application/repository/OrderProductRepository.class
+com/ecommerce/application/repository/OrderRepository.class
+com/ecommerce/application/service/UserService.class
+com/ecommerce/application/repository/ProductRepository.class

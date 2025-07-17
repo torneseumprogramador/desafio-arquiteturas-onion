@@ -13,26 +13,6 @@ import java.util.Optional;
 @Repository
 public interface OrderProductRepositoryImpl extends JpaRepository<OrderProduct, Long>, OrderProductRepository {
     
-    @Override
-    default List<OrderProduct> findAllOrderProducts() {
-        return findAll();
-    }
-    
-    @Override
-    default Optional<OrderProduct> findOrderProductById(Long id) {
-        return findById(id);
-    }
-    
-    @Override
-    default OrderProduct saveOrderProduct(OrderProduct orderProduct) {
-        return save(orderProduct);
-    }
-    
-    @Override
-    default void deleteOrderProduct(Long id) {
-        deleteById(id);
-    }
-    
     List<OrderProduct> findByOrder(Order order);
     
     List<OrderProduct> findByProduct(Product product);

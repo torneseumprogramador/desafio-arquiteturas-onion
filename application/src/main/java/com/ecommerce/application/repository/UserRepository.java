@@ -41,7 +41,7 @@ public interface UserRepository {
      * Delete a user by id
      * @param id the user id
      */
-    void deleteUser(Long id);
+    void deleteById(Long id);
     
     /**
      * Check if a user exists by id

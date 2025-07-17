@@ -32,7 +32,7 @@ public interface UserRepositoryImpl extends JpaRepository<User, Long>, UserRepos
     }
     
     @Override
-    default void deleteUser(Long id) {
+    default void deleteById(Long id) {
         deleteById(id);
     }
     

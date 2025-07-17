@@ -27,7 +27,7 @@ public interface ProductRepositoryImpl extends JpaRepository<Product, Long>, Pro
     }
     
     @Override
-    default void deleteProduct(Long id) {
+    default void deleteById(Long id) {
         deleteById(id);
     }
     

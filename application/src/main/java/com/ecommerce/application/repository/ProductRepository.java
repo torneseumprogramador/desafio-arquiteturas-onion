@@ -41,7 +41,7 @@ public interface ProductRepository {
      * Delete a product by id
      * @param id the product id
      */
-    void deleteProduct(Long id);
+    void deleteById(Long id);
     
     /**
      * Check if a product exists by id

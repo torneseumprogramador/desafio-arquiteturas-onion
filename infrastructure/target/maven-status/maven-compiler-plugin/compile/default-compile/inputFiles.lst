@@ -1,1 +1,6 @@
+/Users/danilo/Desktop/desafio-arquiteturas-onion/ecommerce-onion/infrastructure/src/main/java/com/ecommerce/infrastructure/repository/UserRepositoryImpl.java
+/Users/danilo/Desktop/desafio-arquiteturas-onion/ecommerce-onion/infrastructure/src/main/java/com/ecommerce/infrastructure/repository/ProductRepositoryImpl.java
+/Users/danilo/Desktop/desafio-arquiteturas-onion/ecommerce-onion/infrastructure/src/main/java/com/ecommerce/infrastructure/repository/OrderRepositoryImpl.java
+/Users/danilo/Desktop/desafio-arquiteturas-onion/ecommerce-onion/infrastructure/src/main/java/com/ecommerce/infrastructure/repository/OrderProductRepositoryImpl.java
 /Users/danilo/Desktop/desafio-arquiteturas-onion/ecommerce-onion/infrastructure/src/main/java/com/ecommerce/infrastructure/App.java
+/Users/danilo/Desktop/desafio-arquiteturas-onion/ecommerce-onion/infrastructure/src/main/java/com/ecommerce/infrastructure/EcommerceApplication.java

@@ -31,7 +31,7 @@ public interface OrderRepositoryImpl extends JpaRepository<Order, Long>, OrderRe
     }
     
     @Override
-    default void deleteOrder(Long id) {
+    default void deleteById(Long id) {
         deleteById(id);
     }
     

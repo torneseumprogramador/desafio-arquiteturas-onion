@@ -2,6 +2,7 @@ package com.ecommerce.application.repository;
 
 import com.ecommerce.domain.OrderProduct;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * OrderProductRepository interface - defines operations for OrderProduct entity
@@ -41,4 +42,9 @@ public interface OrderProductRepository {
      * @param productId the product id
      */
     void deleteByProductId(Long productId);
+
+    Optional<OrderProduct> findById(Long id);
+    List<OrderProduct> findAll();
+    void deleteById(Long id);
+    boolean existsById(Long id);
 } 

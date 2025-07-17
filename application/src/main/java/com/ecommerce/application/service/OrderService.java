@@ -117,7 +117,7 @@ public class OrderService {
         }
         
         // Delete the order (order products will be deleted by cascade)
-        orderRepository.deleteOrder(id);
+        orderRepository.deleteById(id);
     }
     
     /**

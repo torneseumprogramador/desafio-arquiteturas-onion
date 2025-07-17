@@ -52,7 +52,7 @@ public interface OrderRepository {
      * Delete an order by id
      * @param id the order id
      */
-    void deleteOrder(Long id);
+    void deleteById(Long id);
     
     /**
      * Check if an order exists by id

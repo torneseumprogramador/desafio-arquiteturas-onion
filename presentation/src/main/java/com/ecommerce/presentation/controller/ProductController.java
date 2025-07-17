@@ -80,16 +80,6 @@ public class ProductController {
         return ResponseEntity.ok(productDtos);
     }
     
-    @PutMapping("/{id}/stock")
-    public ResponseEntity<ProductDto> updateStock(@PathVariable Long id, @RequestParam Integer quantity) {
-        try {
-            Product updatedProduct = productService.updateStock(id, quantity);
-            return ResponseEntity.ok(convertToDto(updatedProduct));
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity.badRequest().build();
-        }
-    }
-    
     private ProductDto convertToDto(Product product) {
         return new ProductDto(
                 product.getId(),

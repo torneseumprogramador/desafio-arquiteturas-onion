@@ -1,1 +1,6 @@
+com/ecommerce/infrastructure/repository/UserRepositoryImpl.class
+com/ecommerce/infrastructure/EcommerceApplication.class
+com/ecommerce/infrastructure/repository/OrderProductRepositoryImpl.class
+com/ecommerce/infrastructure/repository/ProductRepositoryImpl.class
+com/ecommerce/infrastructure/repository/OrderRepositoryImpl.class
 com/ecommerce/infrastructure/App.class

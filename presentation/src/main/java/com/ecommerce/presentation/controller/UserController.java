@@ -3,6 +3,14 @@ package com.ecommerce.presentation.controller;
 import com.ecommerce.application.service.UserService;
 import com.ecommerce.domain.User;
 import com.ecommerce.presentation.dto.UserDto;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.ExampleObject;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,11 +23,22 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/api/users")
 @CrossOrigin(origins = "*")
+@Tag(name = "Usuários", description = "API para gerenciamento de usuários do sistema")
 public class UserController {
     
     @Autowired
     private UserService userService;
     
+    @Operation(
+        summary = "Listar todos os usuários",
+        description = "Retorna uma lista com todos os usuários cadastrados no sistema"
+    )
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "Lista de usuários retornada com sucesso",
+                    content = @Content(mediaType = "application/json",
+                    schema = @Schema(implementation = UserDto.class))),
+        @ApiResponse(responseCode = "204", description = "Nenhum usuário encontrado")
+    })
     @GetMapping
     public ResponseEntity<List<UserDto>> getAllUsers() {
         List<User> users = userService.getAllUsers();
@@ -29,16 +48,36 @@ public class UserController {
         return ResponseEntity.ok(userDtos);
     }
     
+    @Operation(
+        summary = "Buscar usuário por ID",
+        description = "Retorna um usuário específico baseado no ID fornecido"
+    )
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "Usuário encontrado com sucesso"),
+        @ApiResponse(responseCode = "404", description = "Usuário não encontrado")
+    })
     @GetMapping("/{id}")
-    public ResponseEntity<UserDto> getUserById(@PathVariable Long id) {
+    public ResponseEntity<UserDto> getUserById(
+        @Parameter(description = "ID do usuário", example = "1") 
+        @PathVariable Long id) {
         return userService.getUserById(id)
                 .map(this::convertToDto)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
     
+    @Operation(
+        summary = "Criar novo usuário",
+        description = "Cria um novo usuário no sistema"
+    )
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "201", description = "Usuário criado com sucesso"),
+        @ApiResponse(responseCode = "400", description = "Dados inválidos fornecidos")
+    })
     @PostMapping
-    public ResponseEntity<UserDto> createUser(@Valid @RequestBody UserDto userDto) {
+    public ResponseEntity<UserDto> createUser(
+        @Parameter(description = "Dados do usuário a ser criado", required = true)
+        @Valid @RequestBody UserDto userDto) {
         try {
             User user = convertToEntity(userDto);
             User savedUser = userService.createUser(user);

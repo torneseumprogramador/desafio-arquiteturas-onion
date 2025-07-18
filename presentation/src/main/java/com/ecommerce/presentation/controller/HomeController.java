@@ -33,6 +33,13 @@ public class HomeController {
         healthEndpoints.put("database", "/health/database");
         response.put("health", healthEndpoints);
         
+        // Documentação da API
+        Map<String, Object> documentation = new HashMap<>();
+        documentation.put("swagger-ui", "/swagger-ui/index.html");
+        documentation.put("openapi-json", "/v3/api-docs");
+        documentation.put("openapi-yaml", "/v3/api-docs.yaml");
+        response.put("documentation", documentation);
+        
         // Informações adicionais
         Map<String, Object> info = new HashMap<>();
         info.put("description", "Sistema de E-commerce com Onion Architecture");
@@ -43,4 +50,4 @@ public class HomeController {
         
         return ResponseEntity.ok(response);
     }
-} 
+}

@@ -4,6 +4,7 @@ com/ecommerce/presentation/dto/OrderDto.class
 com/ecommerce/presentation/dto/UserDto.class
 com/ecommerce/presentation/controller/HealthController.class
 com/ecommerce/presentation/dto/ProductDto.class
+com/ecommerce/presentation/config/SwaggerConfig.class
 com/ecommerce/presentation/controller/UserController.class
 com/ecommerce/presentation/controller/ProductController.class
 com/ecommerce/presentation/controller/OrderController.class

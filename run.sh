@@ -17,6 +17,9 @@ show_help() {
     echo -e "  ${GREEN}./run.sh docker${NC}             - Apenas inicia Docker (Oracle XE)"
     echo -e "  ${GREEN}./run.sh docker-stop${NC}        - Para containers Docker"
     echo -e "  ${GREEN}./run.sh run${NC}                - Apenas executa a API"
+    echo -e "  ${GREEN}./run.sh stop${NC}               - Para a API"
+    echo -e "  ${GREEN}./run.sh status${NC}             - Mostra status da aplicação"
+    echo -e "  ${GREEN}./run.sh logs${NC}               - Mostra logs da API"
     echo -e "  ${GREEN}./run.sh help${NC}               - Mostra esta ajuda"
     echo ""
     echo -e "${YELLOW}💡 Exemplos:${NC}"
@@ -67,6 +70,15 @@ check_oracle_running() {
     return 1
 }
 
+# Verificar se a API está rodando
+check_api_running() {
+    if nc -z localhost 8080 2>/dev/null; then
+        echo -e "${GREEN}✅ API já está rodando! (Porta 8080)${NC}"
+        return 0
+    fi
+    return 1
+}
+
 # Função para iniciar Docker
 start_docker() {
     # Verifica se já está rodando
@@ -102,6 +114,13 @@ start_docker() {
 
 # Função para executar a API
 run_api() {
+    # Verifica se já está rodando
+    if check_api_running; then
+        echo -e "${YELLOW}ℹ️ API já está rodando em http://localhost:8080${NC}"
+        echo -e "${YELLOW}💡 Para parar: ./run.sh stop${NC}"
+        return 0
+    fi
+    
     echo -e "${GREEN}🎯 Iniciando a API Spring Boot...${NC}"
     echo -e "${BLUE}📱 A API estará disponível em: http://localhost:8080${NC}"
     echo -e "${BLUE}📚 Endpoints disponíveis:${NC}"
@@ -110,7 +129,28 @@ run_api() {
     echo -e "${BLUE}   - Pedidos: http://localhost:8080/api/orders${NC}"
     echo -e "${YELLOW}⏹️ Pressione Ctrl+C para parar${NC}"
     
-    mvn spring-boot:run -pl infrastructure
+    # Executa em background e mostra logs
+    mvn spring-boot:run -pl presentation > app.log 2>&1 &
+    APP_PID=$!
+    
+    # Aguarda um pouco para a aplicação inicializar
+    sleep 15
+    
+    # Verifica se a aplicação está rodando
+    if kill -0 $APP_PID 2>/dev/null && check_api_running; then
+        echo -e "${GREEN}✅ API iniciada com sucesso! (PID: $APP_PID)${NC}"
+        echo -e "${BLUE}🌐 Acesse: http://localhost:8080${NC}"
+        echo -e "${YELLOW}💡 Para parar a aplicação: ./run.sh stop${NC}"
+        echo -e "${YELLOW}💡 Logs: tail -f app.log${NC}"
+        
+        # Aguarda o usuário pressionar Ctrl+C
+        trap "echo -e '\n${YELLOW}🛑 Parando aplicação...${NC}'; kill $APP_PID; exit 0" INT
+        wait $APP_PID
+    else
+        echo -e "${RED}❌ Falha ao iniciar a API${NC}"
+        echo -e "${YELLOW}💡 Verifique os logs: cat app.log${NC}"
+        exit 1
+    fi
 }
 
 # Verificar argumentos
@@ -156,6 +196,50 @@ case "${1:-}" in
         check_java
         check_maven
         run_api
+        ;;
+    "stop")
+        echo -e "${BLUE}🛑 Parando API...${NC}"
+        # Encontra o processo Java da aplicação
+        APP_PID=$(pgrep -f "spring-boot:run.*presentation" | head -1)
+        if [ -n "$APP_PID" ]; then
+            echo -e "${YELLOW}🔄 Parando processo $APP_PID...${NC}"
+            kill $APP_PID
+            sleep 3
+            if kill -0 $APP_PID 2>/dev/null; then
+                echo -e "${RED}⚠️ Processo não parou, forçando...${NC}"
+                kill -9 $APP_PID
+            fi
+            echo -e "${GREEN}✅ API parada com sucesso!${NC}"
+        else
+            echo -e "${YELLOW}ℹ️ Nenhuma API rodando encontrada${NC}"
+        fi
+        ;;
+    "status")
+        echo -e "${BLUE}📊 Status da aplicação:${NC}"
+        if check_oracle_running; then
+            echo -e "${GREEN}✅ Oracle XE: Rodando${NC}"
+        else
+            echo -e "${RED}❌ Oracle XE: Parado${NC}"
+        fi
+        
+        if check_api_running; then
+            echo -e "${GREEN}✅ API: Rodando em http://localhost:8080${NC}"
+            APP_PID=$(pgrep -f "spring-boot:run.*presentation" | head -1)
+            if [ -n "$APP_PID" ]; then
+                echo -e "${BLUE}📋 PID: $APP_PID${NC}"
+            fi
+        else
+            echo -e "${RED}❌ API: Parada${NC}"
+        fi
+        ;;
+    "logs")
+        if [ -f "app.log" ]; then
+            echo -e "${BLUE}📋 Mostrando logs da API:${NC}"
+            tail -f app.log
+        else
+            echo -e "${YELLOW}ℹ️ Arquivo de log não encontrado${NC}"
+            echo -e "${YELLOW}💡 Execute a API primeiro: ./run.sh run${NC}"
+        fi
         ;;
     "help"|"-h"|"--help")
         show_help

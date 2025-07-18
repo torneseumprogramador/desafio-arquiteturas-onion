@@ -1,9 +1,11 @@
 /Users/danilo/Desktop/desafio-arquiteturas-onion/ecommerce-onion/presentation/src/main/java/com/ecommerce/presentation/controller/OrderController.java
+/Users/danilo/Desktop/desafio-arquiteturas-onion/ecommerce-onion/presentation/src/main/java/com/ecommerce/presentation/controller/HomeController.java
 /Users/danilo/Desktop/desafio-arquiteturas-onion/ecommerce-onion/presentation/src/main/java/com/ecommerce/presentation/dto/UserDto.java
 /Users/danilo/Desktop/desafio-arquiteturas-onion/ecommerce-onion/presentation/src/main/java/com/ecommerce/presentation/dto/ProductDto.java
+/Users/danilo/Desktop/desafio-arquiteturas-onion/ecommerce-onion/presentation/src/main/java/com/ecommerce/presentation/EcommerceApplication.java
 /Users/danilo/Desktop/desafio-arquiteturas-onion/ecommerce-onion/presentation/src/main/java/com/ecommerce/presentation/controller/GlobalExceptionHandler.java
 /Users/danilo/Desktop/desafio-arquiteturas-onion/ecommerce-onion/presentation/src/main/java/com/ecommerce/presentation/dto/OrderDto.java
-/Users/danilo/Desktop/desafio-arquiteturas-onion/ecommerce-onion/presentation/src/main/java/com/ecommerce/presentation/App.java
 /Users/danilo/Desktop/desafio-arquiteturas-onion/ecommerce-onion/presentation/src/main/java/com/ecommerce/presentation/controller/ProductController.java
+/Users/danilo/Desktop/desafio-arquiteturas-onion/ecommerce-onion/presentation/src/main/java/com/ecommerce/presentation/controller/HealthController.java
 /Users/danilo/Desktop/desafio-arquiteturas-onion/ecommerce-onion/presentation/src/main/java/com/ecommerce/presentation/dto/OrderProductDto.java
 /Users/danilo/Desktop/desafio-arquiteturas-onion/ecommerce-onion/presentation/src/main/java/com/ecommerce/presentation/controller/UserController.java
